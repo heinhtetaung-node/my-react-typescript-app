@@ -1,6 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+
+interface TypescriptCompProps {
+  name: string;
+}
+
+function TypescriptComp({ name }: TypescriptCompProps) {
+  useEffect(() => {
+    fetch(
+      "/api/products?populate=*&pagination[page]=1&pagination[pageSize]=100"
+    );
+  });
+  return <div>{name}</div>;
+}
 
 function App() {
   return (
@@ -17,6 +30,7 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
+          <TypescriptComp name="Hein" />
         </a>
       </header>
     </div>
