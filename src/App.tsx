@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
@@ -23,6 +23,35 @@ function TypescriptComp({ name }: TypescriptCompProps) {
   return <div>{name}</div>;
 }
 
+function Timer() {
+  const [count, setCounter] = useState<number>(0);
+  const interval = useRef<NodeJS.Timer>();
+
+  const handleStart = () => {
+    interval.current = setInterval(() => {
+      setCounter((prevCounter) => prevCounter + 1);
+    }, 1000);
+  };
+
+  const handlePause = () => {
+    clearInterval(interval.current);
+  };
+
+  const handleReset = () => {
+    setCounter((prevCounter) => prevCounter - prevCounter);
+    clearInterval(interval.current);
+  };
+
+  return (
+    <>
+      <div>{count}</div>
+      <button onClick={() => handleStart()}>Start</button>
+      <button onClick={() => handlePause()}>Pause</button>
+      <button onClick={() => handleReset()}>Reset</button>
+    </>
+  );
+}
+
 function App() {
   return (
     <div className="App">
@@ -40,6 +69,7 @@ function App() {
           Learn React
           <TypescriptComp name="Hein Htet" />
         </a>
+        <Timer />
       </header>
     </div>
   );
